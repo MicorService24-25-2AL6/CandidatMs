@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CandidatService implements ICandidat{
@@ -63,4 +64,16 @@ public class CandidatService implements ICandidat{
     public Job getJobById(int id){
         return jobInterface.getJobByid(id);
     }
+    public List<Job> getFavoriteJobs(int candidateId) {
+        Candidat candidate = candidatRepository.findById(candidateId).get();
+        return candidate.getFavoriteJobs().stream()
+                .map(jobInterface::getJobByid)
+                .collect(Collectors.toList());
+    }
+    public void saveFavoriteJob(int candidateId, int jobId) {
+        Candidat candidate = candidatRepository.findById(candidateId).get();
+        candidate.getFavoriteJobs().add(jobId);
+        candidatRepository.save(candidate);
+    }
+
 }
