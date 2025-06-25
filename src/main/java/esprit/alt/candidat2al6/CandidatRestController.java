@@ -12,7 +12,7 @@ public class CandidatRestController {
     @Autowired
     private CandidatService candidatService;
 
-    private String title = "Hello from Candidat2AL6";
+    private String title = "Hello from Candidat2AL6 version 2";
 
     @GetMapping("/hello")
     public ResponseEntity<String> getTitle() {
@@ -59,4 +59,15 @@ public class CandidatRestController {
             return ResponseEntity.status(404).body(e.getMessage());
         }
     }
+
+    @GetMapping("/jobs")
+    public List<Job> getAllJobs() {
+        return candidatService.getlistJob();
+    }
+
+    @GetMapping("/jobs/{id}")
+    public Job getJobById(@PathVariable(value = "id") int id) {
+        return candidatService.getJobById(id);
+    }
+
 }

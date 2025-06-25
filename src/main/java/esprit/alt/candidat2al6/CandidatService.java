@@ -12,6 +12,8 @@ public class CandidatService implements ICandidat{
     @Autowired
     private CandidatRepository candidatRepository;
 
+    @Autowired
+    private JobInterface jobInterface;
     @Override
     public List<Candidat> gelallcandidats(){
 
@@ -54,4 +56,11 @@ public class CandidatService implements ICandidat{
         return candidatOptional.orElseThrow(() -> new IllegalArgumentException("Candidat with id " + id + " not found."));
     }
 
+
+    public List<Job> getlistJob(){
+        return jobInterface.getalljobs();
+    }
+    public Job getJobById(int id){
+        return jobInterface.getJobByid(id);
+    }
 }
